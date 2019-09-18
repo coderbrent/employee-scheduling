@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import './customers.css';
 
 export default function Customers() {
@@ -13,13 +14,14 @@ export default function Customers() {
       body: JSON.stringify({ userid : id })
     })
       .then(res => res.json())
-  }
+  };
 
-  useEffect(() => {
-    fetch('/db/clients')
-      .then(res => res.json())
-      .then(customers => setCustomer(customers))
-    },[]);
+  const fetchClients = async() => { 
+    const result = await axios.get('/db/clients');
+    setCustomer(result.data)
+  }
+  
+  useEffect( () => { fetchClients(customer) }, []);
 
   function newUser() {
 
@@ -78,7 +80,7 @@ export default function Customers() {
                 <th scope="col"/>
               </tr>
               </thead>
-            { customer.map(cust =>
+            { customer.map(cust => (
             <tbody style={{ backgroundColor: "white"}}>
               <tr>
                 <td>{cust.firstName}</td>
@@ -92,7 +94,7 @@ export default function Customers() {
                 </td>
               </tr>
             </tbody>
-            )}
+            ))}
             </table>
             </div>
             </div>
