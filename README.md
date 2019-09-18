@@ -1,4 +1,4 @@
-# Dispatch Reserve System
+# Dispatch Reservation System
 A simple MERN stack reservation and (ultimately) dispatch system for small limo/taxi operators.
 
 ## Install Instructions
