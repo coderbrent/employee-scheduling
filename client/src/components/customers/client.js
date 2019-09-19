@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios'
 import './customers.css';
 
-export default function Customers() {
-  const [customer, setCustomer] = useState([]);
+class ClientList extends Component {
+  state = {
+    customer: []
+  }
 
-  function deleteUser(id) {
+  deleteUser(id) {
     fetch(`/db/clients/deleteById/${id}`, {
       method: 'post',
       headers: {
@@ -16,15 +18,17 @@ export default function Customers() {
       .then(res => res.json())
   };
 
-  const fetchClients = async() => { 
+  fetchClients = async() => { 
     const result = await axios.get('/db/clients');
-    setCustomer(result.data)
+    
+    this.state.customer = { customer : result.data }
+  }
+
+  componentDidUpdate() {
+    fetchClients();
   }
   
-  useEffect( () => { fetchClients(customer) }, [ ]);
-
-  function newUser() {
-
+  newUser() {
     let fName = document.getElementById('clientFName').value;
     let lName = document.getElementById('clientLName').value;
     let email = document.getElementById('clientEmail').value;
@@ -41,35 +45,51 @@ export default function Customers() {
       })
     }).then(res => res.json())
       .then(res => console.log(res));
-  }
+  };
   
-  return (
-    <>
-    <div className="container d-inline-flex">
-      <div className="row">
-      <div className="col-sm-3">
-        <div className="card mt-3">
-          <div className="card-header" 
-          style={{backgroundColor: 'indigo', color: 'lightpink'}}>
+  render() {
+    return (
+      <>
+      <div className="container d-inline-flex">
+        <div className="row">
+          <div className="col-sm-3">
+            <div className="card mt-3">
+            <div className="card-header" 
+              style={ { backgroundColor: 'indigo', color: 'lightpink' } }>
             <h4>Account Creation</h4>
+            </div>
+              <div className="card-body">
+              <div className='form-group'>
+              
+              <label>First Name</label>
+              <input type="name" 
+                id="clientFName" 
+                className='form-control mb-2' 
+                placeholder="First Name"/>
+              
+              <label>Last Name</label>
+              <input type="name" 
+                id="clientLName" 
+                className='form-control mb-2' 
+                placeholder="Last Name"/>
+
+              <label>E-Mail Address</label>
+              <input type="email" 
+                id="clientEmail" 
+                className='form-control mb-2' 
+                placeholder="Enter E-Mail Address" 
+                required={true}/>
+
+              <button onClick={this.newUser} className="btn btn-primary">Create Account</button>
+            </div>
           </div>
-        <div className="card-body">
-          <div className='form-group'>
-            <label>First Name</label>
-              <input type="name" id="clientFName" className='form-control mb-2' placeholder="First Name"  />
-            <label>Last Name</label>
-              <input type="name" id="clientLName" className='form-control mb-2' placeholder="Last Name" />
-            <label>E-Mail Address</label>
-              <input type="email" id="clientEmail" className='form-control mb-2' placeholder="Enter E-Mail Address" required={true}/>
-              <button onClick={()=> newUser()} className="btn btn-primary">Create Account</button>
-          </div>
-        </div>
         </div>
       </div>
+        
         <div className="col-sm-9 mt-3">
-            <div className="card-header" style={{backgroundColor: 'indigo', color: 'lightpink'}}>
-              <h3 style={{ fontWeight: 'bolder' }}>Client List</h3><small>By Brent Abruzese</small>
-            </div>
+          <div className="card-header" style={{backgroundColor: 'indigo', color: 'lightpink'}}>
+            <h3 style={{ fontWeight: 'bolder' }}>Client List</h3><small>By Brent Abruzese</small>
+          </div>
             <table className="table">
               <thead style={{ backgroundColor: '#888', color: 'white'}}>
               <tr>
@@ -90,7 +110,7 @@ export default function Customers() {
                   <button className="btn btn-primary btn-sm">View</button>
                 </td>
                 <td>
-                <button onClick={() => deleteUser(cust._id)} className="btn btn-danger btn-sm">Delete</button>
+                <button onClick={this.deleteUser(cust._id)} className="btn btn-danger btn-sm">Delete</button>
                 </td>
               </tr>
             </tbody>
@@ -101,4 +121,7 @@ export default function Customers() {
         </div>
     </>
   )
+    }
 }
+
+export default ClientList;
