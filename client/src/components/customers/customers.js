@@ -2,9 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import './customers.css';
 
-export default function Customers() {
-  const [customer, setCustomer] = useState([]);
+const Customers = () => {
+  const [clients, setClients] = useState([]);
 
+  const fetchClients = async() => { 
+    const result = await axios.get('/db/clients');
+    setClients(result.data)
+  }
+
+  useEffect(() => { fetchClients(clients) }, [] );
+  
   function deleteUser(id) {
     fetch(`/db/clients/deleteById/${id}`, {
       method: 'post',
@@ -14,14 +21,8 @@ export default function Customers() {
       body: JSON.stringify({ userid : id })
     })
       .then(res => res.json())
+      .then(setClients(clients))
   };
-
-  const fetchClients = async() => { 
-    const result = await axios.get('/db/clients');
-    setCustomer(result.data)
-  }
-  
-  useEffect( () => { fetchClients(customer) }, []);
 
   function newUser() {
 
@@ -67,11 +68,11 @@ export default function Customers() {
         </div>
       </div>
         <div className="col-sm-9 mt-3">
-            <div className="card-header" style={{backgroundColor: 'indigo', color: 'lightpink'}}>
+            <div className="card-header" style={{backgroundColor: 'darkblue', color: 'whitesmoke'}}>
               <h3 style={{ fontWeight: 'bolder' }}>Client List</h3><small>By Brent Abruzese</small>
             </div>
             <table className="table">
-              <thead style={{ backgroundColor: '#888', color: 'white'}}>
+              <thead style={{ backgroundColor: '#444', color: 'white'}}>
               <tr>
                 <th scope="col">First</th>
                 <th scope="col">Last</th>
@@ -80,17 +81,17 @@ export default function Customers() {
                 <th scope="col"/>
               </tr>
               </thead>
-            { customer.map(cust => (
+            { clients.map(client => (
             <tbody style={{ backgroundColor: "white"}}>
               <tr>
-                <td>{cust.firstName}</td>
-                <td>{cust.lastName}</td>
-                <td><a href={cust.email}>{cust.email}</a></td>
+                <td>{client.firstName}</td>
+                <td>{client.lastName}</td>
+                <td><a href={client.email}>{client.email}</a></td>
                 <td>
                   <button className="btn btn-primary btn-sm">View</button>
                 </td>
                 <td>
-                <button onClick={() => deleteUser(cust._id)} className="btn btn-danger btn-sm">Delete</button>
+                <button onClick={() => deleteUser(client._id)} className="btn btn-danger btn-sm">Delete</button>
                 </td>
               </tr>
             </tbody>
@@ -102,3 +103,5 @@ export default function Customers() {
     </>
   )
 }
+
+export default Customers;
