@@ -5,12 +5,13 @@ import './customers.css';
 const Customers = () => {
   const [clients, setClients] = useState([]);
 
-  const fetchClients = async() => { 
-    const result = await axios.get('/db/clients');
-    setClients(result.data)
-  }
-
-  useEffect(() => { fetchClients(clients) }, [] );
+  useEffect(() => { 
+    const fetchClients = async() => { 
+      const result = await axios.get('/db/clients');
+      setClients(result.data)
+    }
+    fetchClients();
+  }, []);
   
   function deleteUser(id) {
     fetch(`/db/clients/deleteById/${id}`, {
@@ -20,8 +21,9 @@ const Customers = () => {
       },
       body: JSON.stringify({ userid : id })
     })
+    .then(setClients(clients))
       .then(res => res.json())
-      .then(setClients(clients))
+      
   };
 
   function newUser() {
@@ -69,7 +71,7 @@ const Customers = () => {
       </div>
         <div className="col-sm-9 mt-3">
             <div className="card-header" style={{backgroundColor: 'darkblue', color: 'whitesmoke'}}>
-              <h3 style={{ fontWeight: 'bolder' }}>Client List</h3><small>By Brent Abruzese</small>
+              <h3 style={{ fontWeight: 'bolder' }}>Client List</h3><small>Client Count: {clients.length}</small>
             </div>
             <table className="table">
               <thead style={{ backgroundColor: '#444', color: 'white'}}>
