@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
 import './customers.css';
 
 const Customers = () => {
   const [clients, setClients] = useState([]);
 
-  useEffect(() => { 
+  useEffect(() => {
     const fetchClients = async() => { 
-      const result = await axios.get('/db/clients');
-      setClients(result.data)
+      const res = await fetch(
+        "/db/clients"
+      );
+      const json = await res.json();
+      setClients(json)
     }
     fetchClients();
   }, []);
   
+
   function deleteUser(id) {
     fetch(`/db/clients/deleteById/${id}`, {
       method: 'post',
@@ -21,13 +24,10 @@ const Customers = () => {
       },
       body: JSON.stringify({ userid : id })
     })
-    .then(setClients(clients))
-      .then(res => res.json())
-      
+    .then(res => res.json())
   };
 
   function newUser() {
-
     let fName = document.getElementById('clientFName').value;
     let lName = document.getElementById('clientLName').value;
     let email = document.getElementById('clientEmail').value;
@@ -43,7 +43,7 @@ const Customers = () => {
         email: email
       })
     }).then(res => res.json())
-      .then(res => console.log(res));
+      .then(res => console.log(res))
   }
   
   return (
@@ -84,7 +84,7 @@ const Customers = () => {
               </tr>
               </thead>
             { clients.map(client => (
-            <tbody style={{ backgroundColor: "white"}}>
+            <tbody key={client._id} style={{ backgroundColor: "white"}}>
               <tr>
                 <td>{client.firstName}</td>
                 <td>{client.lastName}</td>
