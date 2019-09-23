@@ -29,7 +29,6 @@ const Client = mongoose.model('Client', clientSchema);
 app.get('/db/clients', (req, res) => {
   Client.find((err, clients) => {
     if(err) return console.error(err);
-    console.log(clients)
     res.json(clients)
   })
 })
