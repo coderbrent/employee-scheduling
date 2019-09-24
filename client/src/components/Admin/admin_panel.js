@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import './customers.css';
+import './admin_panel.css';
 
-const Customers = () => {
-  const [clients, setClients] = useState([]);
+const AdminPanel = () => {
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const fetchClients = async() => { 
+    const fetchUsers = async() => { 
       const res = await fetch(
-        "/db/clients"
+        "/db/users"
       );
       const json = await res.json();
-      setClients(json)
+      setUsers(json)
     }
-    fetchClients();
+    fetchUsers();
   }, []);
   
 
- const sortClients = () => {
-  clients.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
-  setClients(clients);
-  console.log(clients)
+ const sortUsers = () => {
+  users.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
+  setUsers(users);
+  console.log(users)
  }
 
   function deleteUser(id) {
-    fetch(`/db/clients/deleteById/${id}`, {
+    fetch(`/db/users/deleteById/${id}`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ const Customers = () => {
     let lName = document.getElementById('clientLName').value;
     let email = document.getElementById('clientEmail').value;
 
-    fetch('/db/clients/newclient', {
+    fetch('/db/users/newuser', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ const Customers = () => {
         <div className="card mt-3">
           <div className="card-header" 
           style={{backgroundColor: 'indigo', color: 'lightpink'}}>
-            <h4>Account Creation</h4>
+            <h4>Admin Panel</h4>
           </div>
         <div className="card-body">
           <div className='form-group'>
@@ -70,14 +70,14 @@ const Customers = () => {
               <input type="name" id="clientLName" className='form-control mb-2' placeholder="Last Name" />
             <label>E-Mail Address</label>
               <input type="email" id="clientEmail" className='form-control mb-2' placeholder="Enter E-Mail Address" required={true}/>
-              <button onClick={()=> newUser()} className="btn btn-primary">Create Account</button>
+              <button onClick={()=> newUser()} className="btn btn-primary">Add User</button>
           </div>
         </div>
         </div>
       </div>
         <div className="col-sm-9 mt-3">
             <div className="card-header" style={{backgroundColor: 'darkblue', color: 'whitesmoke'}}>
-              <h3 style={{ fontWeight: 'bolder' }}>Client List</h3><small>Client Count: {clients.length}</small>
+              <h3 style={{ fontWeight: 'bolder' }}>Employee List</h3><small>Employee Count: {users.length}</small>
             </div>
             <table className="table">
               <thead style={{ backgroundColor: '#444', color: 'white'}}>
@@ -89,18 +89,18 @@ const Customers = () => {
                 <th scope="col"/>
               </tr>
               </thead>
-            { clients.map(client => (
-            <tbody key={client._id} style={{ backgroundColor: "white"}}>
+            { users.map(user => (
+            <tbody key={user._id} style={{ backgroundColor: "white"}}>
               <tr>
-                <td>{client.firstName}</td>
-                <td>{client.lastName}</td>
-                <td><a href={client.email}>{client.email}</a></td>
+                <td>{user.firstName}</td>
+                <td>{user.lastName}</td>
+                <td><a href={user.email}>{user.email}</a></td>
                 <td>
                   <button className="btn btn-primary btn-sm">View</button>
                 </td>
                 <td>
-                <button onClick={() => deleteUser(client._id)} className="btn btn-danger btn-sm">Delete</button>
-                <button onClick={() => sortClients()} className="btn btn-warning">Check client count</button>
+                <button onClick={() => deleteUser(user._id)} className="btn btn-danger btn-sm">Delete</button>
+                <button onClick={() => sortUsers()} className="btn btn-warning">Check User count</button>
                 </td>
               </tr>
             </tbody>
@@ -114,4 +114,4 @@ const Customers = () => {
   )
 }
 
-export default Customers;
+export default AdminPanel;

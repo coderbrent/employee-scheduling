@@ -1,10 +1,10 @@
 import React from 'react';
-import Customers from './components/customers/customers'
+import AdminPanel from './components/Admin/admin_panel'
 
 function App() {
   return (
     <div className="App">
-      <Customers />
+      <AdminPanel />
     </div>
   );
 }
