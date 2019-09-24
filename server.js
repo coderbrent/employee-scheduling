@@ -27,23 +27,27 @@ const clientSchema = new mongoose.Schema({
 const Client = mongoose.model('Client', clientSchema);
 
 app.get('/db/clients', (req, res) => {
-  Client.find((err, clients) => {
-    if(err) return console.error(err);
-    res.json(clients)
-  })
-})
+  Client.find()
+    .then(clients => res.json(clients))
+    .catch(err => res.status(400).json(`Error: ${err}`)
+    )}
+  );
 
 app.post('/db/clients/deleteById/:id', (req, res) => {
-  Client.findByIdAndDelete(req.params.id, cb => {
-    console.log(cb)
-  });
-})
+  Client.findByIdAndDelete(req.params.id)
+      .then(() => res.json('User Deleted'))
+});
 
 app.post('/db/clients/newclient', (req, res) => {
-  let newUser = new Client({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email
+
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const email = req.body.email;
+
+  const newUser = new Client({
+    firstName,
+    lastName,
+    email
   })
   
   newUser.save((err, newUser) => {

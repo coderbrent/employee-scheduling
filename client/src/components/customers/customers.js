@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './customers.css';
-import useAxios from 'axios-hooks';
 
 const Customers = () => {
   const [clients, setClients] = useState([]);
@@ -16,6 +15,12 @@ const Customers = () => {
     fetchClients();
   }, []);
   
+
+ const sortClients = () => {
+  clients.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
+  setClients(clients);
+  console.log(clients)
+ }
 
   function deleteUser(id) {
     fetch(`/db/clients/deleteById/${id}`, {
@@ -44,7 +49,7 @@ const Customers = () => {
         email: email
       })
     }).then(res => res.json())
-      .then(res => console.log(res))
+      .then(res => console.log(res));
   }
   
   return (
@@ -95,12 +100,14 @@ const Customers = () => {
                 </td>
                 <td>
                 <button onClick={() => deleteUser(client._id)} className="btn btn-danger btn-sm">Delete</button>
+                <button onClick={() => sortClients()} className="btn btn-warning">Check client count</button>
                 </td>
               </tr>
             </tbody>
             ))}
             </table>
             </div>
+            
           </div>
         </div>
     </>
