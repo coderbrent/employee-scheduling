@@ -1,7 +1,9 @@
-# Dispatch Reservation System
-A simple MERN stack reservation and (ultimately) dispatch system for small limo/taxi operators.
+# Employee Scheduling Tool
+A simple MERN stack employee scheduling tool for small businesses to keep track of their employees schedules.
+## Overview
+Our scheduling application will be built with small businesses and their employees in mind. The idea is to create a scheduling system that allows employees to log in and view a calendar with their work schedule on it
 
-## Install Instructions
+## DEV Install Instructions
 - **Step 1:** Download or clone the repo 
 - **Step 2:** 'yarn install' in the root folder & client folder
 - **Step 3:**  In the root folder type 'yarn server' in the terminal
