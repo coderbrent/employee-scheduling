@@ -1,11 +1,10 @@
 import React from "react";
-import AdminPanel from "./components/Admin/admin_panel";
-import Calender from "./components/Shared/Calender";
+import AdminPanel from "./components/Admin/AdminPanel/AdminPanel";
 
 function App() {
   return (
     <div className="App">
-      <Calender />
+      <AdminPanel />
     </div>
   );
 }
