@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "./admin_panel.css";
+import "./AdminPanel.css";
+import Calendar from '../../Shared/Calendar'
+import { Button } from 'reactstrap'
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);
+  const [cal, setCal] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -13,12 +16,17 @@ const AdminPanel = () => {
     fetchUsers();
   }, []);
 
-  const sortUsers = () => {
-    users.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
-    setUsers(users);
-    console.log(users);
-  };
+  // It would be cool to put this into a little table header arrow button
+  // const sortByLastName = () => {
+  //   users.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
+  //   setUsers(users);
+  //   console.log(users);
+  // };
 
+  const showCal = () => {
+    cal ? setCal(false) : setCal(true)    
+  }
+  
   function deleteUser(id) {
     fetch(`/db/users/deleteById/${id}`, {
       method: "post",
@@ -128,20 +136,16 @@ const AdminPanel = () => {
                       >
                         Delete
                       </button>
-                      <button
-                        onClick={() => sortUsers()}
-                        className="btn btn-warning"
-                      >
-                        Check User count
-                      </button>
                     </td>
                   </tr>
                 </tbody>
               ))}
-            </table>
+            </table>      
           </div>
         </div>
       </div>
+      <Button onClick={() => showCal()}>Show Calendar</Button>
+      { cal ? <Calendar /> : null }
     </>
   );
 };
