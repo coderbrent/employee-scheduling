@@ -5,17 +5,15 @@ import "bootstrap-daterangepicker/daterangepicker.css";
 
 export default class Calendar extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      date: ''
-    }
-  };
-
-
+      date: ""
+    };
+  }
 
   onDatesChange = ({ startDate, endDate }) => {
     console.log({ startDate, endDate });
-  }
+  };
 
   render() {
     return (
