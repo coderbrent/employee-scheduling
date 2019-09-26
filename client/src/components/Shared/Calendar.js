@@ -1,22 +1,19 @@
 import React, { Component } from "react";
 import { LinkedCalendar } from "rb-datepicker";
-import "./Calendar.css";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-daterangepicker/daterangepicker.css";
 
 export default class Calendar extends Component {
-
   state = {
-    date: ''
-  }
+    date: ""
+  };
 
   onDatesChange = ({ startDate, endDate }) => {
     console.log({ startDate, endDate });
   };
   render() {
     return (
-      <LinkedCalendar
-        onDatesChange={this.onDatesChange}
-        showDropdowns={true}
-      />
+      <LinkedCalendar onDatesChange={this.onDatesChange} showDropdowns={true} />
     );
   }
 }
