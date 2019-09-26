@@ -26,22 +26,12 @@ const AdminPanel = () => {
   const showCal = () => {
     cal ? setCal(false) : setCal(true)    
   }
-  
-  function deleteUser(id) {
-    fetch(`/db/users/deleteById/${id}`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ userid: id })
-    }).then(res => res.json());
-  }
 
   function newUser() {
     let fName = document.getElementById("clientFName").value;
     let lName = document.getElementById("clientLName").value;
     let email = document.getElementById("clientEmail").value;
-
+  
     fetch("/db/users/newuser", {
       method: "post",
       headers: {
@@ -55,6 +45,16 @@ const AdminPanel = () => {
     })
       .then(res => res.json())
       .then(res => console.log(res));
+  }
+  
+  function deleteUser(id) {
+    fetch(`/db/users/deleteById/${id}`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ userid: id })
+    }).then(res => res.json());
   }
 
   return (

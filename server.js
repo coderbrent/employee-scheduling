@@ -18,33 +18,33 @@ app.use(express.urlencoded({ extended: true }))
 
 app.listen(port, () => console.log(`Server is running on port ${port}`))
 
-const clientSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   email: String,
 })
 
-const Client = mongoose.model('Client', clientSchema);
+const User = mongoose.model('User', userSchema);
 
-app.get('/db/clients', (req, res) => {
-  Client.find()
-    .then(clients => res.json(clients))
+app.get('/db/users', (req, res) => {
+  User.find()
+    .then(users => res.json(users))
     .catch(err => res.status(400).json(`Error: ${err}`)
     )}
   );
 
-app.post('/db/clients/deleteById/:id', (req, res) => {
-  Client.findByIdAndDelete(req.params.id)
+app.post('/db/users/deleteById/:id', (req, res) => {
+  User.findByIdAndDelete(req.params.id)
       .then(() => res.json('User Deleted'))
 });
 
-app.post('/db/clients/newclient', (req, res) => {
+app.post('/db/users/newuser', (req, res) => {
 
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const email = req.body.email;
 
-  const newUser = new Client({
+  const newUser = new User({
     firstName,
     lastName,
     email
