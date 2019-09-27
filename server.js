@@ -22,6 +22,8 @@ const userSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   email: String,
+  position: String,
+  phoneNum: String
 })
 
 const User = mongoose.model('User', userSchema);
@@ -43,11 +45,15 @@ app.post('/db/users/newuser', (req, res) => {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const email = req.body.email;
+  const position = req.body.position;
+  const phoneNum = req.body.phoneNum;
 
   const newUser = new User({
     firstName,
     lastName,
-    email
+    email,
+    position,
+    phoneNum
   })
   
   newUser.save((err, newUser) => {

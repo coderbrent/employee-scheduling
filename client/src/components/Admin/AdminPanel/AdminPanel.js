@@ -96,6 +96,8 @@ const AdminPanel = () => {
                   <button onClick={() => newUser()} className="btn btn-primary">
                     Add User
                   </button>
+                  <Button style={{ marginLeft: 3 }} onClick={() => showCal()}>{cal ? `Hide Calendar` : `Show Calendar`}</Button>
+                  { cal ? <Calendar /> : null }
                 </div>
               </div>
             </div>
@@ -127,14 +129,14 @@ const AdminPanel = () => {
                       <a href={user.email}>{user.email}</a>
                     </td>
                     <td>
-                      <button className="btn btn-primary btn-sm">View</button>
+                      <button className="btn btn-primary btn-sm">Schedule</button>
                     </td>
                     <td>
                       <button
                         onClick={() => deleteUser(user._id)}
                         className="btn btn-danger btn-sm"
                       >
-                        Delete
+                        Details
                       </button>
                     </td>
                   </tr>
@@ -144,8 +146,6 @@ const AdminPanel = () => {
           </div>
         </div>
       </div>
-      <Button onClick={() => showCal()}>Show Calendar</Button>
-      { cal ? <Calendar /> : null }
     </>
   );
 };
