@@ -4,7 +4,7 @@ import 'react-dates/lib/css/_datepicker.css';
 
 export default class Calendar extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       
     }
