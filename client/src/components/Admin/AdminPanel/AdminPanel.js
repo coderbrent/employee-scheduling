@@ -21,10 +21,10 @@ const AdminPanel = () => {
     <>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-lg-3">
+          <div className="col-md-3">
             <AddUser />
           </div>
-          <div className="col-lg-9 mt-4">
+          <div className="col-md-9 mt-4">
             <UserList />
           </div>  
         </div>
