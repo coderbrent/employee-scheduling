@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./AdminPanel.css";
 import Calendar from '../../Shared/Calendar'
 import { Button } from 'reactstrap'
+import AddUser from './AddUser/AddUser'
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);
@@ -26,26 +27,6 @@ const AdminPanel = () => {
   const showCal = () => {
     cal ? setCal(false) : setCal(true)    
   }
-
-  function newUser() {
-    let fName = document.getElementById("clientFName").value;
-    let lName = document.getElementById("clientLName").value;
-    let email = document.getElementById("clientEmail").value;
-  
-    fetch("/db/users/newuser", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        firstName: fName,
-        lastName: lName,
-        email: email
-      })
-    })
-      .then(res => res.json())
-      .then(res => console.log(res));
-  }
   
   function deleteUser(id) {
     fetch(`/db/users/deleteById/${id}`, {
@@ -62,45 +43,7 @@ const AdminPanel = () => {
       <div className="container d-inline-flex">
         <div className="row">
           <div className="col-sm-3">
-            <div className="card admin-card  mt-4">
-              <div
-                className="card-header"
-                style={{ backgroundColor: "indigo", color: "lightpink" }}
-              >
-                <h4>Admin Panel</h4>
-              </div>
-              <div className="card-body">
-                <div className="form-group">
-                  <label>First Name</label>
-                  <input
-                    type="name"
-                    id="clientFName"
-                    className="form-control mb-2"
-                    placeholder="First Name"
-                  />
-                  <label>Last Name</label>
-                  <input
-                    type="name"
-                    id="clientLName"
-                    className="form-control mb-2"
-                    placeholder="Last Name"
-                  />
-                  <label>E-Mail Address</label>
-                  <input
-                    type="email"
-                    id="clientEmail"
-                    className="form-control mb-2"
-                    placeholder="Enter E-Mail Address"
-                    required={true}
-                  />
-                  <button onClick={() => newUser()} className="btn btn-primary">
-                    Add User
-                  </button>
-                  <Button style={{ marginLeft: 3 }} onClick={() => showCal()}>{cal ? `Hide Calendar` : `Show Calendar`}</Button>
-                  { cal ? <Calendar /> : null }
-                </div>
-              </div>
-            </div>
+            <AddUser />
           </div>
           <div className="col-sm-9 mt-3 employee-card">
             <div
@@ -120,7 +63,7 @@ const AdminPanel = () => {
                   <th scope="col" />
                 </tr>
               </thead>
-              {users.map(user => (
+              { users.map(user => (
                 <tbody key={user._id} style={{ backgroundColor: "white" }}>
                   <tr>
                     <td>{user.firstName}</td>
@@ -129,15 +72,12 @@ const AdminPanel = () => {
                       <a href={user.email}>{user.email}</a>
                     </td>
                     <td>
-                      <button className="btn btn-primary btn-sm">Schedule</button>
+                      <Button>Schedule</Button>
                     </td>
                     <td>
-                      <button
-                        onClick={() => deleteUser(user._id)}
-                        className="btn btn-danger btn-sm"
-                      >
+                      <Button onClick={() => deleteUser(user._id)}>
                         Details
-                      </button>
+                      </Button>
                     </td>
                   </tr>
                 </tbody>
