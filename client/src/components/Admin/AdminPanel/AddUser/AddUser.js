@@ -24,7 +24,7 @@ export default function AddUser() {
   }
 
   return (
-    <div className="card admin-card mt-4">
+    <div className="card mt-4" style={{minWidth: 250}}>
       <div
         className="card-header"
         style={{ backgroundColor: "indigo", color: "lightpink" }} >
