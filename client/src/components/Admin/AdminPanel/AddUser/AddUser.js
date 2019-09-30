@@ -55,7 +55,7 @@ export default function AddUser() {
               required={true}
             />
             <Button onClick={() => newUser()}>
-              Add User
+              Add Users
             </Button>
           </div>
         </div>
