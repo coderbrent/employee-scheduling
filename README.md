@@ -1,7 +1,7 @@
 # Employee Scheduling Tool
 A simple MERN stack employee scheduling tool for small businesses to keep track of their employees schedules.
 ## Overview
-Our scheduling application will be built with small businesses and their employees in mind. The idea is to create a scheduling system that allows employees to log in and view a calendar with their work schedule on it
+Our scheduling application will be built with small businesses and their employees in mind. The system allows employees to log in and view a calendar with their work schedule on it. They can request time off, vacation/sick days and more. There is also an admin "overview" panel that allows an administrator to approve time off requests and other schedule related items as related to their business.
 
 ## DEV Install Instructions
 - **Step 1:** Download or clone the repo 
