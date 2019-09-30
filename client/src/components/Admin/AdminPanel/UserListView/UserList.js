@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button } from 'reactstrap';
+import { Table, Button, Card } from 'reactstrap';
+import CardHeader from "reactstrap/lib/CardHeader";
             
 export default function UserList() {
   const [users, setUsers] = useState([]);
@@ -26,15 +27,14 @@ export default function UserList() {
 
   return (
     <>
-      <div
-        className="card-header"
+    <Card>
+      <CardHeader
         style={{ backgroundColor: "darkblue", color: "whitesmoke" }}
       >
         <h3 style={{ fontWeight: "bolder" }}>Employee List</h3>
         <small>Employee Count: {users.length}</small>
-      </div>
-
-      <Table>
+      </CardHeader>
+      <Table hover>
         <thead style={{ backgroundColor: "#444", color: "white" }}>
           <tr>
             <th scope="col"> First </th>
@@ -55,6 +55,7 @@ export default function UserList() {
           </tbody>
         ))}
       </Table>
+    </Card>
     </>
   )
 };
