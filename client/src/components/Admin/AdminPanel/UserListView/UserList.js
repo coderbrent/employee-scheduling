@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Card } from 'reactstrap';
+import { Table, Button, Card, Collapse } from 'reactstrap';
 import CardHeader from "reactstrap/lib/CardHeader";
+import './UserList.css'
             
 export default function UserList() {
   const [users, setUsers] = useState([]);
+  const [collapse, isCollapsed] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -23,6 +25,10 @@ export default function UserList() {
       body: JSON.stringify({ userid: id })
     }).then(res => res.json()
     .then(setUsers(users)));
+  }
+
+  const toggle = () => {
+    !collapse ? isCollapsed(true) : isCollapsed(false)
   }
 
   return (
@@ -50,7 +56,15 @@ export default function UserList() {
               <td> {user.firstName} </td>
               <td> {user.lastName} </td>
               <td> <a href={user.email}>{user.email}</a> </td>
-              <td> <Button color="danger" onClick={() => deleteUser(user._id)}> Delete? </Button> </td>
+              <td>
+                <Button color="warning" onClick={()=>toggle()}> Edit </Button>
+                  <Collapse isOpen={collapse}>
+                    Som - you need to put something here
+                  </Collapse>
+              </td>
+              <td>
+                <Button color="danger" onClick={() => deleteUser(user._id)}> Delete? </Button> 
+              </td>
             </tr>
           </tbody>
         ))}

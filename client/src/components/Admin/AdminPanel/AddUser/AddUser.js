@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from 'reactstrap'
+import { Button } from 'reactstrap';
 
 export default function AddUser() {
 
@@ -55,7 +55,7 @@ export default function AddUser() {
               required={true}
             />
             <Button onClick={() => newUser()}>
-              Add Users
+              Add User
             </Button>
           </div>
         </div>
