@@ -10,4 +10,4 @@ Our scheduling application will be built with small businesses and their employe
 - **Step 3:**  In the root folder type 'yarn server' in the terminal
 - **Step 4:**  In the client folder type 'yarn start' in the client folder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Check out the project Wiki for more information.
